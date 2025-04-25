@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
 });
 
+Route::resource('todo', TodoController::class)->except(['show']);
+
 // Route::get('/todo', [TodoController::class, 'view'])->name('todo.view');
 
 // Route::get('/user', [UserController::class, 'index'])->name('user.index');
