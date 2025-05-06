@@ -43,11 +43,11 @@
                                         <a href="{{ route('todo.edit', $todo) }}"class="hover:underline text-xs">{{ $todo->title }}</a>
                                     </td>
                                     <td class="px-6 py-4 md:block">
-                                        @if ($todo->is_done == false)
+                                        @if (!$todo->is_done)
                                             <span class="inline-flex items-center bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-blue-900 dark:text-blue-300">
                                                 On Going
                                             </span>
-                                        @elseif ($todo->is_done == true)
+                                        @else
                                             <span class="inline-flex items-center bg-green-100 text-green-800 text sm font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
                                                 Complete
                                             </span>
@@ -55,7 +55,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex space-x-3">
-                                            @if ($todo->is_done == false)
+                                            @if (!$todo->is_done)
                                             <form action="{{route('todo.complete', $todo)}}" method ="Post">
                                                 @csrf
                                                 @method('PATCH')
@@ -92,11 +92,11 @@
                         </tbody>
                     </table>
                 </div>
-                @if($todosCompleted > 1)
+                @if($todosCompleted > 0)
                 <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
-                    <form action="{{route('todo.deleteallcompleted')}}" method="Post">
+                    <form action="{{route('todo.deleteallcompleted')}}" method="POST">
                         @csrf
-                        @method('delete')
+                        @method('DELETE')
                         <x-primary-button>
                             Delete All Completed Task
                         </x-primary-button>

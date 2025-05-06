@@ -23,7 +23,7 @@ class TodoController extends Controller
     }
 
     public function complete(Todo $todo){
-        if (Auth::user()->id == $todo->user_id){
+        if (Auth::id() == $todo->user_id){
             $todo->update([
                 'is_done' => true,
             ]);
@@ -34,7 +34,7 @@ class TodoController extends Controller
     }
 
     public function uncomplete(Todo $todo){
-        if (Auth::user()->id == $todo->user_id){
+        if (Auth::id() == $todo->user_id){
             $todo->update([
                 'is_done' => false,
             ]);
@@ -49,7 +49,7 @@ class TodoController extends Controller
     }
 
     public function edit(Todo $todo) {
-        if (Auth::user()->id == $todo->user_id){
+        if (Auth::id() == $todo->user_id){
             return view('todo.edit', compact('todo'));
         }else{
             return redirect()->route('todo.index')->with('danger', 'You are not authorized to edit this todo!');
@@ -73,7 +73,7 @@ class TodoController extends Controller
 
         $todo = Todo::create([
             'title' => ucfirst($request->title),
-            'user_id' => auth()->user->id,
+            'user_id' => auth::id(),
         ]);
 
     return redirect()->route('todo.index')->with('success', 'Todo created successfully!');
@@ -89,7 +89,7 @@ class TodoController extends Controller
     }
 
     public function destroyCompleted(){
-        $todosCompleted = Todo::where('user_id', auth()->user->id)
+        $todosCompleted = Todo::where('user_id', Auth::id())
             ->where('is_done', true)
             ->get();
         foreach ($todosCompleted as $todo){

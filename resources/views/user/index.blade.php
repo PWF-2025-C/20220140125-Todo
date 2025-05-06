@@ -92,7 +92,7 @@
                                             <form action="{{route('user.removeadmin', $data)}}" method="POST">
                                                 @csrf
                                                 @method('PATCH')
-                                                <button type='submit' class="text-blue-600 dark:text-blue-400 whitespace-nowrap">
+                                                <button type='submit' class="text-blue-600 dark:text-blue-400 whitespace-nowrap hover:underline">
                                                     Remove Admin
                                                 </button>
                                             </form>
@@ -100,7 +100,7 @@
                                             <form action="{{route('user.makeadmin', $data)}}" method="POST">
                                                 @csrf
                                                 @method('PATCH')
-                                                <button type='submit' class="text-red-600 dark:text-red-400 whitespace-nowrap">
+                                                <button type='submit' class="text-red-600 dark:text-red-400 whitespace-nowrap hover:underline">
                                                     Make Admin
                                                 </button>
                                             </form>
