@@ -32,15 +32,19 @@
                         <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Title</th>
+                                <th scope="col" class="px-6 py-3">Category</th> <!-- Menambahkan kolom kategory -->
                                 <th scope="col" class="px-6 py-3">Status</th>
                                 <th scope="col" class="px-6 py-3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($todos as $todo)
-                                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
+                                <tr class="{{ $loop->index % 2 == 1 ? 'bg-gray-900 dark:bg-gray-700 text-white  ' : 'bg-blue-500 text-white dark:bg-blue-600 ' }}">
                                     <td scope="row" class="px-6 py-4 font-medium text-white dark:text-white">
                                         <a href="{{ route('todo.edit', $todo) }}"class="hover:underline text-xs">{{ $todo->title }}</a>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $todo->category ? $todo->category->title : 'No Category' }}
                                     </td>
                                     <td class="px-6 py-4 md:block">
                                         @if (!$todo->is_done)

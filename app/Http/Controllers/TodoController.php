@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,7 @@ class TodoController extends Controller
         $todos = Todo::where('user_id', Auth::id())
         // ->orderBy('is_done', 'asc')
         ->orderBy('created_at', 'desc')
+        ->with('category')
         ->get();
         // dd($todos);
         $todosCompleted = Todo::where('user_id', Auth::user()->id)
@@ -45,7 +47,8 @@ class TodoController extends Controller
     }
 
     public function Create() {
-        return view('todo.create');
+        $categories = Category::all();  //Mengambil category dari database
+        return view('todo.create', compact('categories'));
     }
 
     public function edit(Todo $todo) {
@@ -69,11 +72,15 @@ class TodoController extends Controller
     public function store(Request $request) {
         $request->validate([
             'title' => 'required|max:255',
+            'category_id' => 'nullable|exists:categories,id',   //Validasi kategori
         ]);
+
+        // dd($request->category_id); // Debug kategori dari form
 
         $todo = Todo::create([
             'title' => ucfirst($request->title),
             'user_id' => auth::id(),
+            'category_id' => $request->category_id, //Menyimpan category
         ]);
 
     return redirect()->route('todo.index')->with('success', 'Todo created successfully!');
