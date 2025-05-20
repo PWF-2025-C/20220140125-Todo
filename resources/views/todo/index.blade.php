@@ -39,7 +39,7 @@
                         </thead>
                         <tbody>
                             @forelse ($todos as $todo)
-                                <tr class="{{ $loop->index % 2 == 1 ? 'bg-gray-900 dark:bg-gray-700 text-white  ' : 'bg-blue-500 text-white dark:bg-blue-600 ' }}">
+                                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
                                     <td scope="row" class="px-6 py-4 font-medium text-white dark:text-white">
                                         <a href="{{ route('todo.edit', $todo) }}"class="hover:underline text-xs">{{ $todo->title }}</a>
                                     </td>
